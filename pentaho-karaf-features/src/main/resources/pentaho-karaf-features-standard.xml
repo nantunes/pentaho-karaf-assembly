@@ -175,8 +175,8 @@
 <!-- Overriding KAR to load 3.0.5 of core, remove once 3.0.5 is released -->
   <feature name="kar" version="3.7.5" description="Provide KAR (KARaf archive) support" resolver="(obr)">
     <bundle start-level="30">mvn:org.apache.karaf.kar/org.apache.karaf.kar.core/3.0.5</bundle>
-    <bundle start-level="30">mvn:org.apache.karaf.kar/org.apache.karaf.kar.command/3.0.3</bundle>
-    <bundle start-level="30">mvn:org.apache.karaf.deployer/org.apache.karaf.deployer.kar/3.0.3</bundle>
+    <bundle start-level="30">mvn:org.apache.karaf.kar/org.apache.karaf.kar.command/3.0.8</bundle>
+    <bundle start-level="30">mvn:org.apache.karaf.deployer/org.apache.karaf.deployer.kar/3.0.8</bundle>
        <bundle>mvn:commons-collections/commons-collections/${commons.collections.version}</bundle>
   </feature>
 
@@ -244,7 +244,7 @@
     <bundle dependency="true" start-level="30">mvn:org.apache.geronimo.specs/geronimo-jta_1.1_spec/1.1.1</bundle>
     <bundle dependency="true" start-level="30">mvn:org.apache.geronimo.specs/geronimo-annotation_1.1_spec/1.0.1</bundle>
     <bundle dependency="true" start-level="30">mvn:org.apache.geronimo.specs/geronimo-jaspic_1.0_spec/1.1</bundle>
-    <bundle dependency="true" start-level="30">mvn:org.ow2.asm/asm-all/5.0.2</bundle>
+    <bundle dependency="true" start-level="30">mvn:org.ow2.asm/asm-all/5.0.3</bundle>
     <bundle start-level="30">mvn:org.eclipse.jetty.aggregate/jetty-all-server/8.1.15.v20140411</bundle>
   </feature>
     <!-- Overriding activemq to exclude xtreaam 1.4.7 version  -->
@@ -264,7 +264,7 @@
         <!--<bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.xstream/1.4.7_1</bundle>-->
         <bundle dependency="true">mvn:org.apache.aries.transaction/org.apache.aries.transaction.manager/1.0.0</bundle>
         <bundle dependency="true">mvn:org.apache.geronimo.specs/geronimo-j2ee-connector_1.5_spec/2.0.0</bundle>
-        <bundle dependency="true">mvn:org.apache.aries/org.apache.aries.util/1.0.0</bundle>
+        <bundle dependency="true">mvn:org.apache.aries/org.apache.aries.util/1.1.1</bundle>
         <bundle dependency="true">mvn:org.apache.activemq/activeio-core/3.1.4</bundle>
         <bundle dependency="true">mvn:org.codehaus.jettison/jettison/1.3.5</bundle>
         <bundle dependency="true">mvn:org.codehaus.jackson/jackson-core-asl/1.9.12</bundle>
