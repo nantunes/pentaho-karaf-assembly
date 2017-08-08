@@ -15,11 +15,14 @@
  ~ Copyright 2017 Pentaho Corporation. All rights reserved.
  -->
 
-<features name="pentaho-karaf-features-standard" xmlns="http://karaf.apache.org/xmlns/features/v1.2.1">
+<features name="pentaho-karaf-features-standard" xmlns="http://karaf.apache.org/xmlns/features/v1.3.0">
 
   <!--This feature never works reliably due to the asynchronous loading of blueprint files-->
   <!--Putting the feature back so these dependencies will be in the local maven repo in /system-->
   <feature name="pentaho-deployers" version="1.0">
+    <feature prerequisite="true">aries-blueprint</feature>
+    <feature prerequisite="true">deployer</feature>
+    <feature prerequisite="true">wrap</feature>
     <bundle>mvn:commons-logging/commons-logging/${commons.logging.version}</bundle>
     <bundle>mvn:com.googlecode.json-simple/json-simple/${json.simple.version}</bundle>
     <bundle>mvn:com.google.guava/guava/${google.guava.version}</bundle>
@@ -33,8 +36,8 @@
   </feature>
 
   <feature name="pentaho-base" version="1.0">
-    <feature>pentaho-deployers</feature>
-    <feature>pentaho-cache-system</feature>
+    <feature prerequisite="true">pentaho-deployers</feature>
+    <feature prerequisite="true">pentaho-cache-system</feature>
     <feature>pentaho-i18n</feature>
 
     <bundle>wrap:mvn:org.pentaho/json/${json.version}</bundle>
@@ -67,7 +70,7 @@
   </feature>
 
   <feature name="pentaho-client" version="1.0">
-    <feature>pentaho-client-minimal</feature>
+    <feature prerequisite="true">pentaho-client-minimal</feature>
     <feature>pentaho-big-data-plugin-osgi</feature>
     <bundle>mvn:commons-collections/commons-collections/${commons.collections.version}</bundle>
   </feature>
@@ -86,7 +89,7 @@
   </feature>
 
   <feature name="pentaho-client-minimal" version="1.0">
-    <feature>pentaho-base</feature>
+    <feature prerequisite="true">pentaho-base</feature>
     <bundle>mvn:pentaho/pentaho-mongo-utils/${pentaho-mongo-utils.version}</bundle>
     <bundle>wrap:mvn:pentaho/pentaho-mongodb-plugin/${pentaho-mongodb-plugin.version}</bundle>
     <bundle>wrap:mvn:org.pentaho.di.plugins/meta-inject-plugin/${kettle.version}</bundle>
@@ -156,10 +159,10 @@
     <feature>pentaho-client</feature>
     <feature>pentaho-tinkerpop-gremlin</feature>
     <conditional>
-      <condition>http</condition>    
+      <condition>http</condition>
       <feature>pentaho-metaverse-web</feature>
-    </conditional> 
- 
+    </conditional>
+
     <feature>pentaho-fasterxml</feature>
     <bundle>mvn:pentaho/pentaho-metaverse-core/${pentaho-metaverse.version}</bundle>
   </feature>
@@ -183,20 +186,11 @@
     <bundle>mvn:org.codehaus.jackson/jackson-xc/${org.codehaus.jackson.version}</bundle>
 
     <bundle>mvn:pentaho/pentaho-metaverse-web/${pentaho-metaverse.version}</bundle>
-  </feature>  
-
-<!-- Overriding KAR to load 3.0.5 of core, remove once 3.0.5 is released -->
-  <feature name="kar" version="3.7.5" description="Provide KAR (KARaf archive) support" resolver="(obr)">
-    <bundle start-level="30">mvn:org.apache.karaf.kar/org.apache.karaf.kar.core/3.0.5</bundle>
-    <bundle start-level="30">mvn:org.apache.karaf.kar/org.apache.karaf.kar.command/3.0.3</bundle>
-    <bundle start-level="30">mvn:org.apache.karaf.deployer/org.apache.karaf.deployer.kar/3.0.3</bundle>
-       <bundle>mvn:commons-collections/commons-collections/${commons.collections.version}</bundle>
   </feature>
-
 
   <feature name="build-helper" description="This is never used in production, exists only to facilitate the build">
     <bundle>mvn:org.apache.felix/org.apache.felix.http.bridge/${org.apache.felix.http.version}</bundle>
-    <bundle>mvn:org.apache.karaf.kar/org.apache.karaf.kar.core/3.0.5</bundle>
+    <bundle>mvn:org.apache.karaf.kar/org.apache.karaf.kar.core/4.1.2</bundle>
     <bundle>mvn:org.apache.aries.transaction/org.apache.aries.transaction.manager/1.1.1</bundle>
 	<bundle>mvn:commons-collections/commons-collections/${commons.collections.version}</bundle>
   </feature>
@@ -214,9 +208,9 @@
   </feature>
 
   <feature name="community-edition" version="1.0" description="Marker feature for Community Edition Builds"/>
-  
+
    <!-- Overriding CXF to ensure that Jetty isn't started -->
-    <feature name="cxf" version="3.7.5" resolver='(obr)'>
+    <feature name="cxf" version="3.7.5">
         <feature version="[3,4)">spring</feature>
         <feature version="[1.2,2)">spring-dm</feature>
         <feature version="${cxf.karaf.version}">cxf-core</feature>
@@ -250,19 +244,8 @@
       </conditional>
     </feature>
 
-
-  <feature name="pax-jetty" description="Provide Jetty engine support" version="8.9" resolver="(obr)">
-    <bundle dependency="true" start-level="30">mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.activation-api-1.1/2.2.0</bundle>
-
-    <bundle dependency="true" start-level="30">mvn:javax.mail/mail/1.4.4</bundle>
-    <bundle dependency="true" start-level="30">mvn:org.apache.geronimo.specs/geronimo-jta_1.1_spec/1.1.1</bundle>
-    <bundle dependency="true" start-level="30">mvn:org.apache.geronimo.specs/geronimo-annotation_1.1_spec/1.0.1</bundle>
-    <bundle dependency="true" start-level="30">mvn:org.apache.geronimo.specs/geronimo-jaspic_1.0_spec/1.1</bundle>
-    <bundle dependency="true" start-level="30">mvn:org.ow2.asm/asm-all/5.0.2</bundle>
-    <bundle start-level="30">mvn:org.eclipse.jetty.aggregate/jetty-all-server/8.1.15.v20140411</bundle>
-  </feature>
     <!-- Overriding activemq to exclude xtreaam 1.4.7 version  -->
-  <feature name="activemq" description="ActiveMQ broker libraries" version="5.12.0" resolver="(obr)" start-level="50">
+  <feature name="activemq" description="ActiveMQ broker libraries" version="5.12.0" start-level="50">
         <feature>http</feature>
         <feature version="5.10.0">activemq-client</feature>
         <bundle>mvn:org.apache.activemq/activemq-karaf/5.10.0</bundle>
@@ -287,7 +270,7 @@
   </feature>
 
   <!-- Overriding cxf-ws-security and wss4j feature to update jasypt to 1.9.2_1 version  -->
-  <feature name="cxf-ws-security" version="3.0.7-pentaho" resolver="(obr)">
+  <feature name="cxf-ws-security" version="3.0.7-pentaho">
     <feature version="3.0.7">cxf-ws-policy</feature>
     <feature version="2.0.6-pentaho">wss4j</feature>
     <feature version="3.0.7">cxf-ws-addr</feature>
@@ -295,7 +278,7 @@
     <bundle start-level="40">mvn:org.apache.cxf/cxf-rt-ws-security/3.0.7</bundle>
     <bundle start-level="40">mvn:org.apache.cxf/cxf-rt-security/3.0.7</bundle>
   </feature>
-  <feature name="wss4j" version="2.0.6-pentaho" resolver="(obr)">
+  <feature name="wss4j" version="2.0.6-pentaho">
     <feature version="3.0.7">cxf-specs</feature>
     <bundle start-level="25" dependency="true">mvn:joda-time/joda-time/2.2</bundle>
     <bundle start-level="25" dependency="true">mvn:commons-codec/commons-codec/1.10</bundle>
@@ -318,7 +301,7 @@
   </feature>
 
   <!-- Overriding spring-security feature to update bundles to 3.1.7.RELEASE version  -->
-  <feature name="spring-security" version="3.1.7.RELEASE" description="Spring Security 3.1.x support" resolver="(obr)">
+  <feature name="spring-security" version="3.1.7.RELEASE" description="Spring Security 3.1.x support">
     <feature>war</feature>
     <feature>spring-dm-web</feature>
     <bundle dependency="true">mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.aspectj/1.7.4_1</bundle>
