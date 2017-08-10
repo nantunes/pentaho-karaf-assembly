@@ -15,7 +15,7 @@
     <configuration-bundles.target>config</configuration-bundles.target>
     <org.ehcache.version>1.0.0</org.ehcache.version>
     <org.codehaus.jackson.version>1.9.13</org.codehaus.jackson.version>
-    <org.apache.felix.http.version>2.3.2</org.apache.felix.http.version>
+    <org.apache.felix.http.version>3.0.0</org.apache.felix.http.version>
     <plugin.org.apache.maven.plugins.maven-clean-plugin.version>2.5</plugin.org.apache.maven.plugins.maven-clean-plugin.version>
     <karaf.version>4.1.2</karaf.version>
     <plugin.org.apache.maven.plugins.maven-resources-plugin.version>2.7</plugin.org.apache.maven.plugins.maven-resources-plugin.version>
@@ -24,12 +24,12 @@
     <commons.collections.version>3.2.2</commons.collections.version>
     <org.apache.mina.version>2.0.7</org.apache.mina.version>
     <com.tinkerpop.version>2.6.0</com.tinkerpop.version>
-    <camel.guava.eventbus.version>2.14.3</camel.guava.eventbus.version>
+    <camel.guava.eventbus.version>2.19.2</camel.guava.eventbus.version>
     <karaf-maven-plugin.version>4.1.2</karaf-maven-plugin.version>
     <eigenbase.properties.version>1.1.4</eigenbase.properties.version>
     <eigenbase.resgen.version>1.3.6</eigenbase.resgen.version>
-    <activemq.karaf.version>5.10.0</activemq.karaf.version>
-    <camel.karaf.version>2.14.3</camel.karaf.version>
+    <activemq.karaf.version>5.15.0</activemq.karaf.version>
+    <camel.karaf.version>2.19.2</camel.karaf.version>
     <olap4j.xmlaserver.version>1.2.0</olap4j.xmlaserver.version>
     <google.guava.version>17.0</google.guava.version>
     <cxf.karaf.version>3.0.7</cxf.karaf.version>
