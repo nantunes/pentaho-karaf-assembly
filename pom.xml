@@ -13,10 +13,12 @@
   <version>8.1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
-    <module>pentaho-karaf-features</module>
+    <module>pentaho-karaf-features-standard</module>
+    <module>pentaho-karaf-features-enterprise</module>
+    <module>pentaho-karaf-features-server</module>
     <module>pentaho-blueprint-activators</module>
     <module>pentaho-osgi-config</module>
-    <module>pentaho-karaf-assembly</module>
+    <module>pentaho-karaf4-assembly</module>
   </modules>
   <properties>
     <mongo.java.driver.version>3.2.2</mongo.java.driver.version>
