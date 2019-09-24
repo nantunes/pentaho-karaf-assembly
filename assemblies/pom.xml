@@ -30,15 +30,6 @@
           <artifactId>karaf-maven-plugin</artifactId>
 
           <extensions>true</extensions>
-
-          <executions>
-            <execution>
-              <id>default-assembly</id>
-              <configuration>
-                <featuresProcessing>target/classes/etc/org.apache.karaf.features.xml</featuresProcessing>
-              </configuration>
-            </execution>
-          </executions>
         </plugin>
       </plugins>
     </pluginManagement>

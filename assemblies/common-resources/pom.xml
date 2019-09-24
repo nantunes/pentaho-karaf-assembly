@@ -10,5 +10,14 @@
   </parent>
 
   <artifactId>common-resources</artifactId>
+  <packaging>kar</packaging>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.hitachivantara.karaf.tooling</groupId>
+        <artifactId>karaf-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
 </project>

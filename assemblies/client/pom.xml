@@ -20,6 +20,12 @@
       <type>kar</type>
     </dependency>
     <dependency>
+      <groupId>org.hitachivantara.karaf.assemblies</groupId>
+      <artifactId>common-resources</artifactId>
+      <version>${project.version}</version>
+      <type>kar</type>
+    </dependency>
+    <dependency>
       <groupId>org.apache.karaf.features</groupId>
       <artifactId>standard</artifactId>
       <classifier>features</classifier>
@@ -131,33 +137,6 @@
 
   <build>
     <plugins>
-      <!-- Using maven-dependency-plugin instead of maven-assembly-plugin to copy files on an earlier
-       phase of the maven build pipeline -->
-      <plugin>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>${maven-dependency-plugin.version}</version>
-        <executions>
-          <execution>
-            <id>unpack</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>unpack</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>org.hitachivantara.karaf.assemblies</groupId>
-                  <artifactId>common-resources</artifactId>
-                  <version>${project.version}</version>
-                  <outputDirectory>target/classes</outputDirectory>
-                </artifactItem>
-              </artifactItems>
-              <excludes>/META-INF/**</excludes>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
       <!-- karaf-maven-plugin will call both assembly and archive goals -->
       <plugin>
         <groupId>org.hitachivantara.karaf.tooling</groupId>

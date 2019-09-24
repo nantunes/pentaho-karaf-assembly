@@ -42,6 +42,13 @@
         <bundle
                 originalUri="mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/[2.9.0,${fasterxml-jackson.version})"
                 replacement="mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/${fasterxml-jackson.version}" mode="maven" />
+
+        <!-- Replacing the org.ops4j.pax.logging/pax-logging-api bundle by our own wrapped version of it,
+             preventing the export of packages from the logging APIs the Pentaho products use and inject from
+             the main classloader (org.apache.commons.logging, org.apache.log4j and org.slf4j). -->
+        <bundle
+                originalUri="mvn:org.ops4j.pax.logging/pax-logging-api/${pax-logging.version}"
+                replacement="mvn:org.hitachivantara/pax-logging-api-wrap/${project.version}" mode="maven" />
     </bundleReplacements>
 
     <!-- A list of feature replacements that allows changing external feature definitions -->
@@ -84,6 +91,35 @@
                 <f:feature prerequisite="true" version="${camel.version}">camel-core</f:feature>
                 <f:bundle dependency="true">mvn:com.google.guava/guava/${guava.monitoring.version}</f:bundle>
                 <f:bundle>wrap:mvn:org.apache.camel/camel-guava-eventbus/${camel.version}$overwrite=merge&amp;Import-Package=com.google.common.eventbus;version="[${guava.monitoring.version},${guava.monitoring.version}]",org.apache.camel;version="[${camel.version},3)",org.apache.camel.impl;version="[${camel.version},3)",org.apache.camel.spi;version="[${camel.version},3)",org.apache.camel.util;version="[${camel.version},3)",org.osgi.framework;version="[1.5,2)",org.osgi.framework.wiring;version="[1.0,2)",org.slf4j;version="[1.6,2)"</f:bundle>
+            </feature>
+        </replacement>
+
+        <replacement>
+            <!-- This is an alternative to the bundle replacement above... neither do work unfortunately -->
+            <feature name="framework" version="${karaf.version}">
+                <!-- persistent wiring extension -->
+                <f:bundle start-level="1">mvn:org.apache.karaf.features/org.apache.karaf.features.extension/${karaf.version}</f:bundle>
+                <!-- mvn: and wrap: url handlers -->
+                <f:bundle start-level="5">mvn:org.ops4j.pax.url/pax-url-aether/${pax-url-aether.version}</f:bundle>
+
+                <!-- logging -->
+                <!-- Replacing the org.ops4j.pax.logging/pax-logging-api bundle by our own wrapped version of it,
+                     preventing the export of packages from the logging APIs the Pentaho products use and inject from
+                     the main classloader (org.apache.commons.logging, org.apache.log4j and org.slf4j). -->
+                <!--bundle start-level="8">mvn:org.ops4j.pax.logging/pax-logging-api/${pax-logging.version}</bundle>
+                <bundle start-level="8">mvn:org.ops4j.pax.logging/pax-logging-log4j2/${pax-logging.version}</bundle-->
+                <f:bundle start-level="8">mvn:org.hitachivantara/pax-logging-api-wrap/${project.version}</f:bundle>
+
+                <f:bundle start-level="8">mvn:org.fusesource.jansi/jansi/${jansi.version}</f:bundle>
+                <!-- config admin -->
+                <f:bundle start-level="9">mvn:org.apache.felix/org.apache.felix.coordinator/${felix.coordinator.version}</f:bundle>
+                <f:bundle start-level="10">mvn:org.apache.felix/org.apache.felix.configadmin/${felix.configadmin.version}</f:bundle>
+                <!-- file install -->
+                <f:bundle start-level="11">mvn:org.apache.felix/org.apache.felix.fileinstall/${felix.fileinstall.version}</f:bundle>
+                <!-- features service -->
+                <f:bundle start-level="15">mvn:org.apache.karaf.features/org.apache.karaf.features.core/${karaf.version}</f:bundle>
+                <f:bundle dependency="true" start-level="30">mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.jaxb-api-2.2/${servicemix-spec.version}</f:bundle>
+                <f:bundle dependency="true" start-level="30">mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.activation-api-1.1/${servicemix-spec.version}</f:bundle>
             </feature>
         </replacement>
     </featureReplacements>
